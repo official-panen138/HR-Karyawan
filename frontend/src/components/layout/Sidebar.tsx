@@ -18,11 +18,13 @@ const navigation = [
 ]
 
 export default function Sidebar() {
-  const hasPermission = useAuthStore((s) => s.hasPermission)
+  const user = useAuthStore((s) => s.user)
   const sidebarOpen = useUiStore((s) => s.sidebarOpen)
 
+  const permissions = user?.permissions ?? []
+
   const visibleNav = navigation.filter(
-    (item) => !item.permission || hasPermission(item.permission)
+    (item) => !item.permission || permissions.includes(item.permission)
   )
 
   return (
