@@ -5,19 +5,26 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BreakQuotaController;
 use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\ExportController;
 use App\Http\Controllers\Api\FeatureFlagController;
 use App\Http\Controllers\Api\IpWhitelistController;
 use App\Http\Controllers\Api\LeaveApprovalController;
 use App\Http\Controllers\Api\LeaveController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ShiftController;
+use App\Http\Controllers\Api\TelegramWebhookController;
 use Illuminate\Support\Facades\Route;
 
-// Public
-Route::post('/login', [AuthController::class, 'login']);
+// Public — rate limited
+Route::middleware('throttle:10,1')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+});
 
-// Protected
-Route::middleware('auth:sanctum')->group(function () {
+// Telegram webhook — no auth, verified by secret header
+Route::post('/telegram/webhook', [TelegramWebhookController::class, 'handle']);
+
+// Protected — rate limited
+Route::middleware(['auth:sanctum', 'throttle:120,1'])->group(function () {
     // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
@@ -73,4 +80,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reports/attendance', [ReportController::class, 'attendance']);
     Route::get('/reports/leave', [ReportController::class, 'leave']);
     Route::get('/reports/documents', [ReportController::class, 'documents']);
+
+    // Export CSV
+    Route::prefix('export')->group(function () {
+        Route::get('/attendance', [ExportController::class, 'attendance']);
+        Route::get('/leave', [ExportController::class, 'leave']);
+        Route::get('/documents', [ExportController::class, 'documents']);
+    });
 });

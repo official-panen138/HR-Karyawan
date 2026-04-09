@@ -28,12 +28,12 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen bg-white border-r border-gray-200 transition-transform',
+        'fixed left-0 top-0 z-40 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform',
         sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full'
       )}
     >
-      <div className="h-16 flex items-center px-6 border-b border-gray-200">
-        <span className="text-lg font-bold text-gray-900">HR System</span>
+      <div className="h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-700">
+        <span className="text-lg font-bold text-gray-900 dark:text-white">HR System</span>
       </div>
 
       <nav className="p-4 space-y-1">
@@ -45,8 +45,8 @@ export default function Sidebar() {
               cn(
                 'block px-3 py-2 rounded-md text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
               )
             }
           >

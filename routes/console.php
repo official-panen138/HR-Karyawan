@@ -1,8 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+// Document expiry reminders — daily at 08:00
+Schedule::command('hr:remind-document-expiry')
+    ->dailyAt('08:00')
+    ->withoutOverlapping();
+
+// Leave carry-over — annually on Jan 1st at 00:30
+Schedule::command('hr:leave-carry-over')
+    ->yearlyOn(1, 1, '00:30')
+    ->withoutOverlapping();

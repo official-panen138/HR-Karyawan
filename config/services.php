@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'telegram' => [
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'webhook_secret' => env('TELEGRAM_WEBHOOK_SECRET'),
+        'callback_secret' => env('TELEGRAM_CALLBACK_SECRET'),
+        'hr_group_chat_id' => env('TELEGRAM_HR_GROUP_CHAT_ID'),
+    ],
+
 ];

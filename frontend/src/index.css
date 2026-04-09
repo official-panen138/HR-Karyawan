@@ -19,9 +19,21 @@
   --radius-sm: 0.25rem;
 }
 
+.dark {
+  --color-background: #111827;
+  --color-foreground: #F9FAFB;
+  --color-card: #1F2937;
+  --color-card-foreground: #F9FAFB;
+  --color-border: #374151;
+  --color-muted: #374151;
+  --color-muted-foreground: #9CA3AF;
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
