@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\LeaveController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ShiftController;
 use App\Http\Controllers\Api\TelegramWebhookController;
+use App\Http\Controllers\Api\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 // Public — rate limited
@@ -71,6 +72,10 @@ Route::middleware(['auth:sanctum', 'throttle:120,1'])->group(function () {
     Route::get('/leave-approvals/pending', [LeaveApprovalController::class, 'pending']);
     Route::post('/leave-approvals/{approval}/approve', [LeaveApprovalController::class, 'approve']);
     Route::post('/leave-approvals/{approval}/reject', [LeaveApprovalController::class, 'reject']);
+
+    // Users
+    Route::apiResource('users', UserManagementController::class)->except(['show']);
+    Route::get('/roles', [UserManagementController::class, 'roles']);
 
     // Feature Flags
     Route::apiResource('feature-flags', FeatureFlagController::class)->except(['show']);

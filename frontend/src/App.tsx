@@ -17,6 +17,7 @@ import DocumentIndex from '@/pages/documents/Index'
 import ShiftIndex from '@/pages/shifts/Index'
 import IpWhitelist from '@/pages/settings/IpWhitelist'
 import FeatureFlags from '@/pages/settings/FeatureFlags'
+import Users from '@/pages/settings/Users'
 import ReportAttendance from '@/pages/reports/Attendance'
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
             {/* Settings */}
             <Route path="/settings/ip-whitelist" element={<IpWhitelist />} />
             <Route path="/settings/feature-flags" element={<FeatureFlags />} />
+            <Route path="/settings/users" element={<Users />} />
           </Route>
 
           {/* Redirect root to dashboard */}
