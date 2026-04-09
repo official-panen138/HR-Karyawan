@@ -1,0 +1,19 @@
+<?php
+
+use App\Http\Controllers\Api\AuthController;
+use Illuminate\Support\Facades\Route;
+
+// Public routes
+Route::post('/login', [AuthController::class, 'login']);
+
+// Protected routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+
+    // Telegram webhook (no auth needed, handled separately)
+    // Route::post('/telegram/webhook', [TelegramWebhookController::class, 'handle']);
+});
+
+// Telegram webhook — no auth, verified by secret
+// Route::post('/telegram/webhook', [TelegramWebhookController::class, 'handle']);
