@@ -7,7 +7,7 @@ interface FeatureFlag {
   feature_key: string
   label: string
   is_globally_enabled: boolean
-  enabled_roles: string[]
+  enabled_for_roles: string[]
 }
 
 export default function FeatureFlags() {
@@ -53,8 +53,8 @@ export default function FeatureFlags() {
                     <td className="py-3 px-4">{flag.label}</td>
                     <td className="py-3 px-4">
                       <div className="flex flex-wrap gap-1">
-                        {flag.enabled_roles.length > 0 ? (
-                          flag.enabled_roles.map((role) => (
+                        {flag.enabled_for_roles.length > 0 ? (
+                          flag.enabled_for_roles.map((role) => (
                             <span
                               key={role}
                               className="inline-block px-2 py-0.5 bg-gray-100 text-gray-700 rounded-full text-xs"
