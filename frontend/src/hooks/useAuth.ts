@@ -1,8 +1,9 @@
+import { useEffect } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import api from '@/lib/axios'
 import { useAuthStore } from '@/stores/authStore'
-import type { ApiResponse, } from '@/types/api'
+import type { ApiResponse } from '@/types/api'
 import type { AuthResponse, User } from '@/types/employee'
 
 export function useLogin() {
@@ -40,15 +41,23 @@ export function useMe() {
   const token = useAuthStore((s) => s.token)
   const setAuth = useAuthStore((s) => s.setAuth)
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ['me'],
     queryFn: async () => {
       const { data } = await api.get<ApiResponse<User>>('/me')
       return data.data
     },
     enabled: !!token,
-    onSuccess: (data: User) => {
-      setAuth(data, token!)
-    },
-  } as any)
+    staleTime: 30 * 1000, // 30 seconds — refetch user data more often
+    retry: 1,
+  })
+
+  // Sync fetched user data to Zustand store
+  useEffect(() => {
+    if (query.data && token) {
+      setAuth(query.data, token)
+    }
+  }, [query.data, token, setAuth])
+
+  return query
 }
