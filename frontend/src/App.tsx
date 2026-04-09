@@ -8,6 +8,16 @@ import EmployeeIndex from '@/pages/employees/Index'
 import EmployeeCreate from '@/pages/employees/Create'
 import EmployeeShow from '@/pages/employees/Show'
 import EmployeeEdit from '@/pages/employees/Edit'
+import AttendanceIndex from '@/pages/attendance/Index'
+import AttendanceReport from '@/pages/attendance/Report'
+import LeaveIndex from '@/pages/leave/Index'
+import LeaveCreate from '@/pages/leave/Create'
+import LeaveApprovals from '@/pages/leave/Approvals'
+import DocumentIndex from '@/pages/documents/Index'
+import ShiftIndex from '@/pages/shifts/Index'
+import IpWhitelist from '@/pages/settings/IpWhitelist'
+import FeatureFlags from '@/pages/settings/FeatureFlags'
+import ReportAttendance from '@/pages/reports/Attendance'
 
 export default function App() {
   return (
@@ -27,9 +37,27 @@ export default function App() {
             <Route path="/employees/:id" element={<EmployeeShow />} />
             <Route path="/employees/:id/edit" element={<EmployeeEdit />} />
 
-            {/* Placeholder routes — akan diisi di Fase 2 */}
-            {/* <Route path="/attendance" element={<AttendanceIndex />} /> */}
-            {/* <Route path="/leave" element={<LeaveIndex />} /> */}
+            {/* Attendance */}
+            <Route path="/attendance" element={<AttendanceIndex />} />
+            <Route path="/attendance/report" element={<AttendanceReport />} />
+
+            {/* Leave */}
+            <Route path="/leave" element={<LeaveIndex />} />
+            <Route path="/leave/create" element={<LeaveCreate />} />
+            <Route path="/leave/approvals" element={<LeaveApprovals />} />
+
+            {/* Documents */}
+            <Route path="/documents" element={<DocumentIndex />} />
+
+            {/* Shifts */}
+            <Route path="/shifts" element={<ShiftIndex />} />
+
+            {/* Reports */}
+            <Route path="/reports/attendance" element={<ReportAttendance />} />
+
+            {/* Settings */}
+            <Route path="/settings/ip-whitelist" element={<IpWhitelist />} />
+            <Route path="/settings/feature-flags" element={<FeatureFlags />} />
           </Route>
 
           {/* Redirect root to dashboard */}
