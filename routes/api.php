@@ -33,6 +33,21 @@ Route::middleware(['auth:sanctum', 'throttle:120,1'])->group(function () {
     // Dashboard
     Route::get('/dashboard/stats', [ReportController::class, 'dashboard']);
 
+    // Master data (divisions, positions)
+    Route::get('/divisions', fn () => response()->json([
+        'success' => true,
+        'data' => \App\Models\Division::where('is_active', true)->orderBy('name')->get(['id', 'name', 'code']),
+    ]));
+    Route::get('/positions', function (\Illuminate\Http\Request $request) {
+        return response()->json([
+            'success' => true,
+            'data' => \App\Models\Position::where('is_active', true)
+                ->when($request->division_id, fn ($q, $v) => $q->where('division_id', $v))
+                ->orderBy('level')
+                ->get(['id', 'name', 'code', 'division_id', 'level']),
+        ]);
+    });
+
     // Employees
     Route::apiResource('employees', EmployeeController::class);
 
